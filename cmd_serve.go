@@ -8,10 +8,12 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 )
 
 var (
-	configFile string
+	configFile     string
+	configFileLock = &sync.Mutex{}
 )
 
 // validate config and set default value
@@ -50,6 +52,8 @@ func validateConfig(inputConfig *config.Config) error {
 }
 
 func initConfig() {
+	configFileLock.Lock()
+	defer configFileLock.Unlock()
 	fileContent, err := os.ReadFile(configFile)
 	if err != nil {
 		log.Fatal(err)

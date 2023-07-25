@@ -51,7 +51,7 @@ func (t *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		t.resp(w, http.StatusMethodNotAllowed)
 		return
 	}
-
+	initConfig()
 	// validate request token
 	token := r.FormValue("token")
 	if token == "" {
