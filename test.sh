@@ -1,0 +1,2 @@
+echo "${tag}"
+ls -lha
