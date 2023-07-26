@@ -4,11 +4,7 @@ import (
 	"bytes"
 	"github.com/pkg/errors"
 	"io"
-	"log"
-	"os"
 	"os/exec"
-	"path"
-	"strings"
 )
 
 type bashExecutor struct {
@@ -29,16 +25,7 @@ func (t *bashExecutor) Exec() error {
 	command.Stderr = t.errorOutput
 	buffer := bytes.NewBuffer(nil)
 	for _, script := range t.scripts {
-		if strings.Index(script, "/") != 0 {
-			script = path.Join(t.Workdir, script)
-		}
-		log.Println("load script: ", script)
-		content, err := os.ReadFile(script)
-		if err != nil {
-			t.logger.Println(err)
-			return errors.Wrap(err, "load script failed")
-		}
-		buffer.Write(content)
+		buffer.WriteString(script)
 	}
 	if buffer.Len() == 0 {
 		return errors.New("script file is empty")
