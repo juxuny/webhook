@@ -25,7 +25,7 @@ func (t *bashExecutor) Exec() error {
 	command.Stderr = t.errorOutput
 	buffer := bytes.NewBuffer(nil)
 	for _, script := range t.scripts {
-		buffer.WriteString(script)
+		buffer.WriteString(script + "\n")
 	}
 	if buffer.Len() == 0 {
 		return errors.New("script file is empty")
