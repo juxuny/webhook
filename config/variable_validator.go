@@ -11,7 +11,7 @@ const (
 	allowCharactor = "abcdevghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_=+"
 )
 
-var allowCharactorMapper map[rune]bool
+var allowCharactorMapper = make(map[rune]bool)
 
 func init() {
 	for _, c := range allowCharactor {
