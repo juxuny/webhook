@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/juxuny/webhook/config"
-	"github.com/juxuny/webhook/executor"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/juxuny/webhook/config"
+	"github.com/juxuny/webhook/executor"
 )
 
 type Handler struct {
@@ -98,6 +99,7 @@ func (t *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if err = config.VariableValidate(value, variable.Type); err != nil {
+			t.logger.Println("invalid parameter: ", value)
 			t.respFail(w, err.Error())
 			return
 		}
