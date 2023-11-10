@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	allowCharactor = "abcdevghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_=+"
+	allowCharactor = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_=+"
 )
 
 var allowCharactorMapper = make(map[rune]bool)
