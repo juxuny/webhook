@@ -1,13 +1,31 @@
 package config
 
 import (
-	"github.com/pkg/errors"
 	"strconv"
 	"strings"
+
+	"github.com/pkg/errors"
 )
+
+const (
+	allowCharactor = "abcdevghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_=+"
+)
+
+var allowCharactorMapper map[rune]bool
+
+func init() {
+	for _, c := range allowCharactor {
+		allowCharactorMapper[c] = true
+	}
+}
 
 func VariableValidate(input string, variableType VariableType) error {
 	if variableType == VariableTypeString {
+		for _, c := range input {
+			if _, b := allowCharactorMapper[c]; !b {
+				return errors.Errorf("invalid charactor %c", c)
+			}
+		}
 		return nil
 	}
 	if variableType == VariableTypeBool {
